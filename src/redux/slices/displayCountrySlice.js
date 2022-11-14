@@ -1,5 +1,5 @@
 import {createSlice} from "@reduxjs/toolkit";
-import {initialCountry} from "../../assets/initialCountry";
+import initialCountry from "../../assets/initialCountry";
 
 
 export const displayCountrySlice = createSlice({
@@ -19,7 +19,7 @@ export const displayCountrySlice = createSlice({
 
 export const {setDisplayCountry, deleteDisplayCountry} = displayCountrySlice.actions;
 
-export const selectDisplayCountry = (state) => state.displayCountry;
+export const selectDisplayCountry = (state) => state.displayedCountry.value;
 
 export default displayCountrySlice.reducer;
 
