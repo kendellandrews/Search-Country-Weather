@@ -8,23 +8,28 @@ const Weather = () => {
     let display = useSelector(selectDisplayCountry);
     let latitude = display.capitalInfo.latlng[0];
     let longitude = display.capitalInfo.latlng[1];
-    
+
     useEffect(() => {
         const options = {
-        method: 'GET',
-        url: 'https://weatherapi-com.p.rapidapi.com/current.json',
-        params: {q: '<REQUIRED>'},
-        headers: {
-            'X-RapidAPI-Key': '342dbd7c26mshd44cec19487c8cep1dbaf5jsn5cba05184a4b',
-            'X-RapidAPI-Host': 'weatherapi-com.p.rapidapi.com'
-        }
+            method: "GET",
+            url: "https://weatherapi-com.p.rapidapi.com/current.json",
+            params: { q: `${latitude}, ${longitude}` },
+            headers: {
+                "X-RapidAPI-Key":
+                    "79ccfaed23msh682b7ea8536df9ap1dae16jsn6b9c2dd76294",
+                "X-RapidAPI-Host": "weatherapi-com.p.rapidapi.com",
+            },
         };
 
-    axios.request(options).then(function (response) {
-        console.log(response.data);
-    }).catch(function (error) {
-        console.error(error);
-    });
+        axios
+            .request(options)
+            .then(function (response) {
+                console.log(response.data);
+                setWeather(response.data);
+            })
+            .catch(function (error) {
+                console.error(error);
+            });
     }, []);
 
     return (
@@ -44,13 +49,13 @@ const Weather = () => {
                 </tr>
                 <tr>
                     <td>Humidity: </td>
-                    <td>{weather?.current?.humidity}</td>
+                    <td>{weather?.current?.humidity}%</td>
                 </tr>
                 <tr>
                     <td>Wind Speed: </td>
                     <td>
-                    {weather?.current?.wind_mph} mph{" "}
-                    {weather?.current?.wind_dir}
+                        {weather?.current?.wind_mph} mph{" "}
+                        {weather?.current?.wind_dir}
                     </td>
                 </tr>
             </table>
